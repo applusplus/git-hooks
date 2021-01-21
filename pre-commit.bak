@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Verhindert das direkte Commiten auf Geschüzte Branches (master, develop, qs)
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+BRANCH_NAME="${BRANCH_NAME##*/}"
+PROTECTED_BRANCHES=("master" "develop" "qs")
+
+if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${BRANCH_NAME} " ]]; then
+  echo "You can't commit directly to $BRANCH_NAME branch"
+  exit 1
+fi

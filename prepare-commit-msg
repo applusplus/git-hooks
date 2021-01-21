@@ -1,19 +1,21 @@
 #!/bin/bash
-# The script below adds the branch name automatically to
-# every one of your commit messages. The regular expression
-# below searches for JIRA issue key's. The issue key will
-# be extracted out of your branch name
 
-REGEX_ISSUE_ID="[a-zA-Z0-9,\.\_\-]+-[0-9]+"
+# Der Branch-Name wird automatisch vor der Commit-Nachricht gesetzt.
+# z.B. feature/CBS-236 wird zu
+# CBS-236: (benutzerdefinierte Eingabe)
 
-# Find current branch name
-BRANCH_NAME=$(git symbolic-ref --short HEAD)
-
-if [[ -z "$BRANCH_NAME" ]]; then
-    echo "No branch name... "; exit 1
+# This way you can customize which branches should be skipped when
+# prepending commit message.
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+  BRANCHES_TO_SKIP=(master develop)
 fi
 
-# Extract issue id from branch name
-ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E "$REGEX_ISSUE_ID")
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+BRANCH_NAME="${BRANCH_NAME##*/}"
 
-echo "$ISSUE_ID"': '$(cat "$1") > "$1"
+BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
+BRANCH_IN_COMMIT=$(grep -c "$BRANCH_NAME" $1)
+
+if [ -n "$BRANCH_NAME" ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
+  sed -i.bak -e "1s/^/$BRANCH_NAME: /" $1
+fi

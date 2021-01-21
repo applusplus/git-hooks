@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Führt rekursiv update von den Submodulen und initialisiert sie, wenn es nötig ist.
+exec git submodule update --init --recursive
