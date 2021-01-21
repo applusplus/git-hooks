@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Der Branch-Name wird automatisch vor der Commit-Nachricht gesetzt.
-# z.B. feature/CBS-236 wird zu
-# CBS-236: (benutzerdefinierte Eingabe)
+# The branch name will be automatically set in front of the commit message.
+# e.g feature/CBS-236 branch will be added in front of the commit message as:
+# CBS-236: (user input)
 
 # This way you can customize which branches should be skipped when
 # prepending commit message.
