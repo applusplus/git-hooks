@@ -1,4 +1,4 @@
-## Globale Git-Hooks Installation
+## Global Git-Hooks Installation
 
 #### Requirements
 [git](https://git-scm.com/) Version 2.9 or later
