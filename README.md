@@ -1,17 +1,13 @@
 ## Globale Git-Hooks Installation
 
-#### Voraussetzung
-[git](https://git-scm.com/) Version 2.9 oder neuerer
+#### Requirements
+[git](https://git-scm.com/) Version 2.9 or later
 
-#### Installation
-1. Das git-hooks Repository clonen.
-2. In das Repo-Verzeichnis navigieren.
-3. Den aktuellen Ordner global als hooksPath registrieren.
+#### Installation under Windows
+1. Clone the git-hooks repository.
+2. Open cmd and navigate to repository's directory.
+3. Register hooksPath globally.
     ```bash
-    git config --global core.hooksPath $PWD
-    ```  
-4. Alle Dateien im Verzeichnis ausführbar machen.
-   ```bash
-    chmod -R +x ./
+    git config --global core.hooksPath %cd%
     ```
-5. Fertig. Die git hooks sind registriert.
+5. Done. Git should now use files from your local git-hooks repository as hooks, as long files name match.
